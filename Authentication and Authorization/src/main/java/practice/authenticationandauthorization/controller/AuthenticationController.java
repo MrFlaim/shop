@@ -1,5 +1,6 @@
 package practice.authenticationandauthorization.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,12 @@ import practice.authenticationandauthorization.service.authentication.Authentica
 
 @RestController
 @RequestMapping("/api/auth")
+@SessionAttributes("username")
 public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
+    @Autowired
+    private HttpSession httpSession;
 
     @GetMapping("/user/{username}")
     public User getUserByUsername(@PathVariable String username) {
@@ -25,8 +29,8 @@ public class AuthenticationController {
         String password = loginRequest.getPassword();
         boolean isAuthenticated = authenticationService.authenticate(username, password);
         if (isAuthenticated) {
+            httpSession.setAttribute("username", username);
             return ResponseEntity.ok().build();
-            //?
         } else {
             return (ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed"));
         }
@@ -34,6 +38,8 @@ public class AuthenticationController {
 
     @PostMapping("/logout")
     public void logout(String username) {
-        authenticationService.logout(username);
+        if (authenticationService.logout(username)) {
+            httpSession.removeAttribute("username");
+        }
     }
 }

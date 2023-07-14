@@ -9,6 +9,6 @@ public interface AuthenticationService {
 
     public boolean authenticate(String username, String password);
 
-    public void logout(String username);
+    public boolean logout(String username);
 
 }

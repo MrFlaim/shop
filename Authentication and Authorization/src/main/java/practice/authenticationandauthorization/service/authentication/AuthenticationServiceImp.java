@@ -29,18 +29,17 @@ public class AuthenticationServiceImp implements AuthenticationService {
         Optional<User> optionalUser = userRepository.findById(username);
         if (optionalUser.isPresent()) {
             user = optionalUser.get();
-            return user.getPassword().equals(password);
+            if (user.getPassword().equals(password)) {
+                return true;
+            }
         }
         return false;
     }
 
     @Override
-    public void logout(String username) {
+    public boolean logout(String username) {
         User user = null;
         Optional<User> optionalUser = userRepository.findById(username);
-        if (optionalUser.isPresent()) {
-            //?
-        }
-
+        return optionalUser.isPresent();
     }
 }
