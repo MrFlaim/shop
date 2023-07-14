@@ -22,10 +22,14 @@ public class CatServiceImp implements CartService {
     }
 
     @Override
-    public void updateCart(int userID, int productID) {
-        cartRepository.updateAllByUserIDAndProductID(userID, productID);
+    public void updateCart(Cart cart) {
+        cartRepository.save(cart);
     }
 
+    @Override
+    public void addCart(Cart cart) {
+        cartRepository.save(cart);
+    }
 
     @Override
     public void deleteProduct(int userID, int productID) {
@@ -34,7 +38,7 @@ public class CatServiceImp implements CartService {
     }
 
     @Override
-    public int findQuantity(int userID, int productID){
+    public int findQuantity(int userID, int productID) {
         Cart cart = cartRepository.findByProductIDAndUserID(productID, userID);
         return cart.getQuantity();
     }

@@ -20,16 +20,16 @@ public class CartController {
         return cartService.getProductsByUser(userID);
     }
 
-    @PostMapping("/{userID}/products/{productID}")
-    public void addProduct(@PathVariable int userID, @PathVariable int productID) {
-        cartService.updateCart(userID, productID);
+    @PostMapping("")
+    public void addProduct(@RequestBody Cart cart) {
+        cartService.addCart(cart);
     }
 
-    @PutMapping("/{userID}/products/{productID}")
-    public void updateQuantity(@PathVariable int userID, @PathVariable int productID) {
-        cartService.updateCart(userID, productID);
-        if (cartService.findQuantity(userID, productID) == 0) {
-            cartService.deleteProduct(userID, productID);
+    @PutMapping("")
+    public void updateQuantity(@RequestBody Cart cart) {
+        cartService.updateCart(cart);
+        if (cart.getQuantity() == 0) {
+            cartService.deleteProduct(cart.getUserID(), cart.getProductID());
         }
     }
 
