@@ -1,5 +1,6 @@
 package practice.authenticationandauthorization.service.authentication;
 
+import practice.authenticationandauthorization.entity.Authority;
 import practice.authenticationandauthorization.entity.User;
 
 import java.util.List;

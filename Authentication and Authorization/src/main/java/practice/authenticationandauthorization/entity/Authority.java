@@ -1,20 +1,22 @@
 package practice.authenticationandauthorization.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Authority {
     @Id
-    @Column(name = "username")
-    private String username;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int roleID;
 
     @Column(name = "authority")
     private String authority;
 
-    public Authority(String username, String authority) {
-        this.username = username;
+    @OneToOne
+    @JoinColumn(name = "roleID")
+    private User user;
+
+    public Authority(int roleID, String authority) {
+        this.roleID = roleID;
         this.authority = authority;
     }
 
@@ -22,12 +24,12 @@ public class Authority {
 
     }
 
-    public String getUsername() {
-        return username;
+    public int getUsername() {
+        return roleID;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(int roleID) {
+        this.roleID = roleID;
     }
 
     public String getAuthority() {

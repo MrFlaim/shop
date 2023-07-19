@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class ContentServiceImp implements ContentService {
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Override
     public List<Product> getAllProducts() {

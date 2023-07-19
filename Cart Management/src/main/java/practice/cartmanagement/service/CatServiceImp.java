@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class CatServiceImp implements CartService {
     @Autowired
-    CartRepository cartRepository;
+    private CartRepository cartRepository;
 
     @Override
     public List<Integer> getProductsByUser(int userID) {

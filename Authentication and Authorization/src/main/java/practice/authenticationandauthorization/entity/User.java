@@ -1,8 +1,6 @@
 package practice.authenticationandauthorization.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 
@@ -20,15 +18,19 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    public User(String username, String password, boolean enabled, String email) {
+    @OneToOne
+    @JoinColumn(name = "roleID")
+    private  Authority authority;
+    public User() {
+
+    }
+
+    public User(String username, String password, boolean enabled, String email, Authority authority) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.email = email;
-    }
-
-    public User() {
-
+        this.authority = authority;
     }
 
     public String getUsername() {
@@ -61,5 +63,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Authority getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
     }
 }

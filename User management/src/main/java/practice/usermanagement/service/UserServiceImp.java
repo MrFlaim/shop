@@ -13,17 +13,15 @@ import java.util.Optional;
 @Service
 public class UserServiceImp implements UserService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    AuthorityRepository authorityRepository;
+    private AuthorityRepository authorityRepository;
 
 
     @Override
     public FullUser getUser(String username) {
         FullUser fullUser = new FullUser();
-        User user = null;
         Optional<User> optionalUser = userRepository.findById(username);
-        Authority authority = null;
         Optional<Authority> optionalAuthority = authorityRepository.findById(username);
         if (optionalUser.isPresent() && optionalAuthority.isPresent()) {
             fullUser.setUser(optionalUser.get());

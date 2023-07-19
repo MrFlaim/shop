@@ -12,7 +12,7 @@ import practice.authenticationandauthorization.service.authorization.Authorizati
 @RequestMapping("/api/auth/permissions")
 public class AuthorizationController {
     @Autowired
-    AuthorizationService authorizationService;
+    private AuthorizationService authorizationService;
 
     @GetMapping("/{username}")
     public Authority getAuthority(@PathVariable String username) {
